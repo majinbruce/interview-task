@@ -31,32 +31,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     providerEngine.addProvider(new MetamaskSubprovider(scopedWindow.web3.currentProvider));
     providerEngine.addProvider(new RPCSubprovider(INFURA_RPC_URL));
     providerEngine.start();
-
+    
+    
     // We initialize the Web3Wrapper, which is 0x's alternative to Web3.js library.
     const client = new Web3Wrapper(providerEngine);
+    console.log(client);
     const provider = client.getProvider();
+   
     const chainId = await client.getChainIdAsync();
-    if (chainId !== 42) {
-        throw new Error(`Chain ID should be set to Kovan, it was set to ${chainId}`);
+    
+    if (chainId !== 80001) {
+        throw new Error(`Chain ID should be set to Polygon Mumbai, it was set to ${chainId}`);
     }
-
+   
     const daiToken = new ERC20TokenContract(FAKE_DAI, provider);
     const usdcToken = new ERC20TokenContract(FAKE_USDC, provider);
     const daiDecimals = await daiToken.decimals().callAsync();
     const usdcDecimals = await usdcToken.decimals().callAsync();
-
+    console.log("this is working");
     linkBtnToCallback("mintDAI", () => mintTokens(account, FAKE_DAI, provider, DEFAULT_MINT_AMOUNT));
     linkBtnToCallback("mintUSDC", () => mintTokens(account, FAKE_USDC, provider, DEFAULT_MINT_AMOUNT));
     linkBtnToCallback("swapDaiForUsdc", () => performSwapAsync(usdcToken, daiToken, 100, account, provider));
     linkBtnToCallback("swapUsdcForDai", () => performSwapAsync(daiToken, usdcToken, 100, account, provider));
 
-    const zeroExDeployedAddresses = getContractAddressesForChainOrThrow(ChainId.Kovan);
+    const zeroExDeployedPlygonAddresses = getContractAddressesForChainOrThrow(ChainId.PolygonMumbai);
     setInterval(async () => {
 
         const daiBalance = await daiToken.balanceOf(account).callAsync()
         const usdcBalance = await usdcToken.balanceOf(account).callAsync()
-        const daiAllowance = await daiToken.allowance(account, zeroExDeployedAddresses.erc20Proxy).callAsync();
-        const usdcAllowance = await usdcToken.allowance(account, zeroExDeployedAddresses.erc20Proxy).callAsync();
+        const daiAllowance = await daiToken.allowance(account, zeroExDeployedPlygonAddresses.erc20BridgeProxy).callAsync();
+        const usdcAllowance = await usdcToken.allowance(account, zeroExDeployedPlygonAddresses.erc20BridgeProxy).callAsync();
         const usdcAllowanceText = Web3Wrapper.toUnitAmount(usdcAllowance, usdcDecimals.toNumber()).decimalPlaces(2);
         const daiAllowanceText = Web3Wrapper.toUnitAmount(daiAllowance, daiDecimals.toNumber()).decimalPlaces(2);;
 
