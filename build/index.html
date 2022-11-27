@@ -1,121 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link
+      href="http://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-<head>
+    <title>Blockchain @ Berkeley - deep dive into 0x API</title>
+  </head>
 
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <body>
+    <script src="bundle.js"></script>
 
-  <title>Blockchain @ Berkeley - deep dive into 0x API</title>
-</head>
-
-<body>
-  <script src="bundle.js"></script>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">Blockchain @ Berkeley deep dive into 0x API</a>
-    </div>
-  </nav>
-
-  <!-- Page Content -->
-  <div class="container">
-    <div class="row">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <div class="row banner">
-          <div class="alert alert-warning w-100 mt-3" role="alert">
-            This Demo only works on the Kovan testnet. DAI and USDC are two drop-in replacement ERC20 tokens that I have deployed
+        <a class="navbar-brand" href="#"
+          >Blockchain @ Berkeley deep dive into 0x API</a
+        >
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="container">
+          <div class="row banner">
+            <div class="alert alert-warning w-100 mt-3" role="alert">
+              This Demo only works on the Kovan testnet. DAI and USDC are two
+              drop-in replacement ERC20 tokens that I have deployed
+            </div>
           </div>
-        </div>
-        <div class="row main">
-          <div class="offset-3 col-6 mb-5">
-            <div class="row exchange mt-5">
-              <div class="col-12">
-                <div class="row py-3 px-lg-4 exchange-header">
-                  <b>Your Balance</b>
-                </div>
-                <div class="row exchange-currency">
-                  <div class="col-2 exchange-logo">
-                    <img src="img/dai.svg">
+          <div class="row main">
+            <div class="offset-3 col-6 mb-5">
+              <div class="row exchange mt-5">
+                <div class="col-12">
+                  <div class="row py-3 px-lg-4 exchange-header">
+                    <b>Your Balance</b>
                   </div>
-                  <div class="col-2 exchange-currency-name align-middle">
-                    DAI
+                  <div class="row exchange-currency">
+                    <div class="col-2 exchange-logo">
+                      <img src="img/dai.svg" />
+                    </div>
+                    <div class="col-2 exchange-currency-name align-middle">
+                      DAI
+                    </div>
+                    <div
+                      id="fakeDaiBalance"
+                      class="col-3 offset-md-3 exchange-currency-value"
+                    >
+                      N/A
+                    </div>
+                    <div class="col-2 exchange-currency-plus">
+                      <button id="mintDAI" class="rounded-circle">+</button>
+                    </div>
                   </div>
-                  <div id="fakeDaiBalance" class="col-3 offset-md-3 exchange-currency-value">
-                    N/A
+                  <div class="row exchange-currency">
+                    <div class="col-2 exchange-logo">
+                      <img src="img/usdc.svg" />
+                    </div>
+                    <div class="col-2 exchange-currency-name align-middle">
+                      USDC
+                    </div>
+                    <div
+                      id="fakeUsdcBalance"
+                      class="col-3 offset-md-3 exchange-currency-value"
+                    >
+                      N/A
+                    </div>
+                    <div class="col-2 exchange-currency-plus">
+                      <button id="mintUSDC" class="rounded-circle">+</button>
+                    </div>
                   </div>
-                  <div class="col-2 exchange-currency-plus">
-                    <button id="mintDAI" class="rounded-circle">+</button>
+                  <div class="row exchange-buttons">
+                    <div class="col">
+                      <button
+                        id="swapUsdcForDai"
+                        class="exchange-action-btn btn my-3"
+                      >
+                        SELL 100 USDC FOR DAI
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="row exchange-currency">
-                  <div class="col-2 exchange-logo">
-                    <img src="img/usdc.svg">
-                  </div>
-                  <div class="col-2 exchange-currency-name align-middle">
-                    USDC
-                  </div>
-                  <div id="fakeUsdcBalance" class="col-3 offset-md-3 exchange-currency-value">
-                    N/A
-                  </div>
-                  <div class="col-2 exchange-currency-plus">
-                    <button id="mintUSDC" class="rounded-circle">+</button>
-                  </div>
-                </div>
-                <div class="row exchange-buttons">
-                  <div class="col">
-                    <button id="swapUsdcForDai" class="exchange-action-btn btn my-3">
-                      SELL 100 USDC FOR DAI
-                    </button>
-                  </div>
-                </div>
-                <div class="row exchange-buttons">
-                  <div class="col">
-                    <button id="swapDaiForUsdc" class="exchange-action-btn btn my-1">
-                      SELL 100 DAI FOR USDC
-                    </button>
+                  <div class="row exchange-buttons">
+                    <div class="col">
+                      <button
+                        id="swapDaiForUsdc"
+                        class="exchange-action-btn btn my-1"
+                      >
+                        SELL 100 DAI FOR USDC
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col debugger">
-            <div class="row">
-              <div class="col debugger-header px-5 py-4">
-                Debugging Info
+          <div class="row mt-5">
+            <div class="col debugger">
+              <div class="row">
+                <div class="col debugger-header px-5 py-4">Debugging Info</div>
               </div>
-            </div>
-            <div class="py-4 px-4 row">
-              <div class="col-5 debugger-pane-outer">
-                <div class="row debugger-pane py-4 px-4">
-                  <div class="col-10">
-                    <p>DAI allowance to 0x exchange</p>
+              <div class="py-4 px-4 row">
+                <div class="col-5 debugger-pane-outer">
+                  <div class="row debugger-pane py-4 px-4">
+                    <div class="col-10">
+                      <p>DAI allowance to 0x exchange</p>
+                    </div>
+                    <div class="col-2">
+                      <img src="img/dai.svg" />
+                    </div>
                   </div>
-                  <div class="col-2">
-                    <img src="img/dai.svg">
-                  </div>
-                </div>
-                <div class="row debugger-pane-amount px-4">
-                  <p id="fakeDaiAllowance" class="ml-3">N/A</p>
-                </div>
-              </div>
-              <div class="offset-2 col-5 debugger-pane-outer">
-                <div class="row debugger-pane py-4 px-4">
-                  <div class="col-10">
-                    <p>USDC allowance to 0x exchange</p>
-                  </div>
-                  <div class="col-2">
-                    <img src="img/usdc.svg">
+                  <div class="row debugger-pane-amount px-4">
+                    <p id="fakeDaiAllowance" class="ml-3">N/A</p>
                   </div>
                 </div>
-                <div class="row debugger-pane-amount px-4">
-                  <p id="fakeUsdcAllowance" class="ml-3">N/A</p>
+                <div class="offset-2 col-5 debugger-pane-outer">
+                  <div class="row debugger-pane py-4 px-4">
+                    <div class="col-10">
+                      <p>USDC allowance to 0x exchange</p>
+                    </div>
+                    <div class="col-2">
+                      <img src="img/usdc.svg" />
+                    </div>
+                  </div>
+                  <div class="row debugger-pane-amount px-4">
+                    <p id="fakeUsdcAllowance" class="ml-3">N/A</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -123,8 +142,5 @@
         </div>
       </div>
     </div>
-  </div>
-
-</body>
-
+  </body>
 </html>
